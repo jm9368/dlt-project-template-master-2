@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+
+  # Elastic Search
+
+  elasticsearch:
+    hostname: elasticsearch
+    networks:
+      - monitoring
+    ports:
+      - '127.0.0.1:9200:9200'
+      - '127.0.0.1:9300:9300'
+    image: 'elasticsearch:8.11.1'
+    restart: unless-stopped
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - xpack.security.http.ssl.enabled=false
+
+  kibana:
+    hostname: kibana
+    networks:
+      - monitoring
+    ports:
+      - '127.0.0.1:5601:5601'
+    volumes:
+      - 'kibana_data:/usr/share/kibana/data'
+    image: 'kibana:8.11.1'
+    restart: unless-stopped
+
+networks:
+  monitoring:
+
+volumes:
+  kibana_data:

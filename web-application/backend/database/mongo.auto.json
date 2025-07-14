@@ -1,0 +1,94 @@
+{
+    "primaryKeys": [
+        {
+            "collection": "dynamic_configuration",
+            "field": "configKey"
+        },
+        {
+            "collection": "sessions",
+            "field": "id"
+        },
+        {
+            "collection": "user_profile",
+            "field": "id"
+        },
+        {
+            "collection": "user_roles",
+            "field": "id"
+        },
+        {
+            "collection": "tp_users",
+            "field": "id"
+        },
+        {
+            "collection": "users",
+            "field": "id"
+        },
+        {
+            "collection": "wallets",
+            "field": "id"
+        }
+    ],
+    "indexes": [
+        {
+            "collection": "sessions",
+            "unique": false,
+            "fields": [
+                {
+                    "name": "uid",
+                    "dir": ""
+                }
+            ]
+        },
+        {
+            "collection": "tp_users",
+            "unique": false,
+            "fields": [
+                {
+                    "name": "uid",
+                    "dir": ""
+                }
+            ]
+        },
+        {
+            "collection": "users",
+            "unique": true,
+            "fields": [
+                {
+                    "name": "usernameLowerCase",
+                    "dir": ""
+                }
+            ]
+        },
+        {
+            "collection": "users",
+            "unique": true,
+            "fields": [
+                {
+                    "name": "email",
+                    "dir": ""
+                }
+            ]
+        },
+        {
+            "collection": "users",
+            "unique": false,
+            "fields": [
+                {
+                    "name": "role",
+                    "dir": ""
+                }
+            ]
+        },
+        {
+            "collection": "wallets",
+            "unique": false,
+            "fields": [
+                {
+                    "name": "uid",
+                    "dir": ""
+                }
+            ]
+        }
+    ]
+}

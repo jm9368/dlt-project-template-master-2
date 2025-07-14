@@ -1,0 +1,14 @@
+# Backend
+
+backend/node_modules
+backend/data
+backend/temp
+backend/dist
+backend/.env
+
+# Frontend
+
+frontend/node_modules
+frontend/dist
+frontend/TODO.txt
+frontend/.env

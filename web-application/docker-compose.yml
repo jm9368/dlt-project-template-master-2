@@ -1,0 +1,99 @@
+services:
+
+  # Blockchain
+
+  # platform_besu_node:
+  #   hostname: besu_node
+  #   ports:
+  #     - '8545:8545'
+  #   networks:
+  #     - platform_network
+  #   image: 'hyperledger/besu'
+  #   user: "root:root"
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./data/besu:/opt/besu/database
+  #     - ../besu-test-node/networkFiles/config:/etc/besu/config
+  #     - ../besu-test-node/networkFiles/keys/bootnode:/etc/besu/keys
+  #   command: 
+  #     --data-path=/opt/besu/database
+  #     --genesis-file=/etc/besu/config/genesis.json 
+  #     --node-private-key-file=/etc/besu/keys/key
+  #     --rpc-http-max-active-connections=999999
+  #     --min-gas-price=0
+  #     --rpc-http-enabled 
+  #     --rpc-http-host=0.0.0.0
+  #     --rpc-http-api=ETH,NET,WEB3
+  #     --host-allowlist="*" 
+  #     --rpc-http-cors-origins="all"
+  #     --logging=INFO
+
+  platform_redis:
+    hostname: redis
+    image: 'redis:latest'
+    ports:
+      - '6379'
+    networks:
+      - platform_network
+    restart: unless-stopped
+
+  platform_database:
+    hostname: database
+    image: mongo
+    ports:
+      - '27017'
+    networks:
+      - platform_network
+    restart: unless-stopped
+    volumes:
+      - ./data/mongo:/data/db
+
+  platform_app:
+    depends_on:
+      - platform_database
+      - platform_redis
+      # - platform_besu_node
+    hostname: platform
+    image: web-application-name
+    build:
+      context: .
+    ports:
+      - '80:80'
+      - '443:443'
+    networks:
+      - platform_network
+    restart: unless-stopped
+    volumes:
+      - ./data/app:/backend/data
+    environment:
+      - APP_NAME=Platform
+      - VITE__PLATFORM_NAME=Platform
+      - VITE__PLATFORM_DESCRIPTION=Template platform
+      - APP_VERSION=1.0.0
+      - RUN_TASKS=YES
+      - BACKEND_EXTERNAL_URI=http://localhost
+      - FRONTEND_EXTERNAL_URI=http://localhost
+      - ALLOWED_ORIGINS=http://localhost
+      - VITE__API_SERVER_HOST=/
+      - SERVE_FRONTEND=YES
+      - WORKERS_NUMBER=1
+      - LOG_REQUESTS=YES
+      - LOG_INFO=YES
+      - LOG_DEBUG=NO
+      - DB_TYPE=MONGO
+      - DB_MONGO_URL=mongodb://database:27017/database_name
+      - FILE_STORAGE_MODE=FS
+      - FILE_STORAGE_FS_PATH=/backend/data
+      - FILE_STORAGE_PRIVATE_SECRET=${FILE_STORAGE_PRIVATE_SECRET:-secret}
+      - FILE_STORAGE_SERVER_URL=http://localhost/static/
+      - INITIAL_USER_NAME=admin
+      - INITIAL_USER_PASSWORD=password
+      - REDIS_ENABLED=YES
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - BLOCKCHAIN_NODE_PROTOCOL=http
+      - BLOCKCHAIN_NODE_RPC_URL=http://besu_node:8545
+      - BLOCKCHAIN_SYNC=NO
+
+networks:
+  platform_network:

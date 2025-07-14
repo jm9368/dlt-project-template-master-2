@@ -1,0 +1,21 @@
+[Unit]
+Description=Application service
+After=network.target auditd.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/npm start
+User=bisite
+Group=bisite
+WorkingDirectory=/home/bisite/project/web-application/backend
+Environment=NODE_ENV=production
+LimitNOFILE=infinity
+LimitCORE=infinity
+KillMode=control-group
+StandardInput=null
+StandardOutput=syslog
+StandardError=syslog
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

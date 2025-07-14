@@ -1,0 +1,105 @@
+/* Theme colors */
+
+.dark-theme {
+    background: #181818;
+    color: white;
+
+    --bg-color: #181818;
+    --text-color: white;
+
+    --theme-border-color: rgba(255, 255, 255, 0.1);
+    --theme-btn-hover-color: white;
+    --theme-btn-color: rgba(255, 255, 255, 0.75);
+    --modal-overlay-bg-color: rgba(0, 0, 0, 0.4);
+    --modal-bg-color: #212121;
+    --bar-bg-color: #212121;
+
+    --hover-color: rgba(255, 255, 255, 0.1);
+    --selected-color: rgba(255, 255, 255, 0.2);
+
+    --switch-color: white;
+    --switch-shadow-color: rgba(0, 0, 0, 0.33);
+    --switch-shadow-toggled-color: rgba(255, 255, 255, 0.5);
+    --switch-disabled-color: gray;
+
+    --button-primary-bg: #005cf5;
+    --button-primary-bg-hover: #004ecc;
+    --button-primary-text: white;
+
+    --button-login-bg: #005cf5;
+    --button-login-bg-hover: #004ecc;
+    --button-login-text: white;
+
+    --button-danger-bg: red;
+    --button-danger-bg-hover: darkred;
+    --button-danger-text: white;
+
+    --button-submit-bg: green;
+    --button-submit-bg-hover: darkgreen;
+    --button-submit-text: white;
+
+    --input-bg-color: hsl(0, 0%, 7%);
+    --input-autocomplete-bg-color: black;
+
+    --user-profile-image-background: lightgray;
+
+    --success-color: green;
+    --error-color: red;
+    --warn-color: orange;
+}
+
+.light-theme {
+    background: #f9f9f9;
+    color: black;
+
+    --bg-color: #f9f9f9;
+    --text-color: black;
+
+    --theme-border-color: rgba(0, 0, 0, 0.1);
+    --theme-btn-hover-color: black;
+    --theme-btn-color: rgba(0, 0, 0, 0.75);
+    --modal-overlay-bg-color: rgba(0, 0, 0, 0.4);
+    --modal-bg-color: white;
+    --bar-bg-color: white;
+
+    --hover-color: rgba(0, 0, 0, 0.1);
+    --selected-color: rgba(0, 0, 0, 0.2);
+
+    --switch-color: black;
+    --switch-shadow-color: rgba(255, 255, 255, 0.33);
+    --switch-shadow-toggled-color: rgba(0, 0, 0, 0.5);
+    --switch-disabled-color: lightgray;
+
+    --button-primary-bg: #005cf5;
+    --button-primary-bg-hover: #004ecc;
+    --button-primary-text: white;
+
+    --button-login-bg: #1c1c25;
+    --button-login-bg-hover: #000000;
+    --button-login-text: white;
+
+    --button-danger-bg: red;
+    --button-danger-bg-hover: darkred;
+    --button-danger-text: white;
+
+    --button-submit-bg: green;
+    --button-submit-bg-hover: darkgreen;
+    --button-submit-text: white;
+
+    --input-bg-color: white;
+    --input-autocomplete-bg-color: lightgray;
+
+    --user-profile-image-background: lightgray;
+
+    --success-color: green;
+    --error-color: red;
+    --warn-color: orange;
+}
+
+.dark-theme a {
+    color: lightskyblue;
+}
+
+.dark-theme a:visited {
+    color: lightpink;
+}

@@ -1,0 +1,19 @@
+[Unit]
+Description=Automated certbot renewal service
+After=network.target auditd.service
+
+[Service]
+Type=simple
+ExecStart=/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'
+User=root
+Group=root
+LimitNOFILE=infinity
+LimitCORE=infinity
+KillMode=process
+StandardInput=null
+StandardOutput=syslog
+StandardError=syslog
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,62 @@
+name: Backend CI
+
+on:
+  push:
+    branches: [ "master", "main", "develop" ]
+    paths:
+      - web-application/backend/**
+      - .github/workflows/backend.yml
+  pull_request:
+    branches: [ "master", "main", "develop" ]
+    paths:
+      - web-application/backend/**
+      - .github/workflows/backend.yml
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install NodeJS
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
+
+    - name: Set up ffmpeg 
+      id: ffmpeg
+      uses: FedericoCarboni/setup-ffmpeg@v2
+
+    - name: Create mongo Docker container
+      id: build_mongo_docker
+      uses: DigiPie/mongo-action@v1.0.1
+      with:
+        image-version: latest
+        port: 27017
+
+    - name: Setup test node
+      uses: AgustinSRG/eth-test-node-action@v5
+      with:
+        rpcPort: 8545
+
+    - name: Compile smart contracts
+      working-directory: ./smart-contracts
+      run: npm install && npm run gen-keys && npm run build
+
+    - name: Install dependencies
+      working-directory: ./web-application/backend
+      run: npm install
+
+    - name: Build source code
+      working-directory: ./web-application/backend
+      run: npm run build
+
+    - name: Run tests
+      working-directory: ./web-application/backend
+      run: npm test
+      env:
+        FFMPEG_PATH: ${{ steps.ffmpeg.outputs.ffmpeg-path }}
+        FFPROBE_PATH: ${{ steps.ffmpeg.outputs.ffprobe-path }}

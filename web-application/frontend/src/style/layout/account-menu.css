@@ -1,0 +1,126 @@
+/* Account menu */
+
+.modal-container.modal-container-corner {
+    z-index: 210;
+    justify-content: right;
+    align-items: flex-end;
+    padding-top: var(--top-bar-size);
+    padding-right: 56px;
+    background: transparent;
+    pointer-events: none;
+}
+
+.modal-container.modal-container-corner.modal-wallet-corner {
+    padding-right: 112px;
+}
+
+.modal-container.modal-container-corner .modal-dialog {
+    margin: 0;
+    width: 300px;
+    border: solid 1px var(--theme-border-color);
+    pointer-events: all;
+}
+
+@media (max-width: 400px) {
+    .modal-container.modal-container-corner .modal-dialog {
+        width: 100%;
+    }
+}
+
+.modal-header-corner {
+    padding: 1rem;
+    border-bottom: solid 1px var(--theme-border-color);
+}
+
+.account-settings-username {
+    font-weight: bold;
+    font-size: x-large;
+}
+
+.account-settings-logout-link {
+    padding-top: 0.5rem;
+    font-size: small;
+}
+
+.modal-body.no-padding {
+    padding: 0;
+}
+
+.modal-body.border-top {
+    border-top: solid 1px var(--theme-border-color);
+}
+
+.settings-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.settings-list-item {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+a.settings-list-item {
+    color: var(--text-color);
+}
+
+a.settings-list-item:visited {
+    color: var(--text-color);
+}
+
+.settings-list-item:hover {
+    background: var(--hover-color);
+}
+
+.settings-list-item-icon {
+    padding: 0.5rem;
+    font-size: 16px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.settings-list-item-caption {
+    padding: 0.5rem;
+    flex: 1;
+    min-width: 0;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+}
+
+.settings-list-btn {
+    padding: 0.5rem;
+}
+
+.settings-list-item-arrow {
+    padding: 0.25rem;
+}
+
+.check-invisible {
+    visibility: hidden;
+}
+
+.select-wallet-name,
+.select-wallet-addr,
+.select.wallet-opt {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.select-wallet-opt,
+.select-wallet-addr {
+    font-size: small;
+    padding-top: 0.5rem;
+}

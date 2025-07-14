@@ -1,0 +1,39 @@
+name: Frontend CI
+
+on:
+  push:
+    branches: [ "master", "main", "develop" ]
+    paths:
+      - web-application/frontend/**
+      - .github/workflows/frontend.yml
+  pull_request:
+    branches: [ "master", "main", "develop" ]
+    paths:
+      - web-application/frontend/**
+      - .github/workflows/frontend.yml
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install NodeJS
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
+
+    - name: Install dependencies
+      working-directory: ./web-application/frontend
+      run: npm install
+
+    - name: Build source code
+      working-directory: ./web-application/frontend
+      run: npm run build
+
+    - name: Run tests
+      working-directory: ./web-application/frontend
+      run: npm test

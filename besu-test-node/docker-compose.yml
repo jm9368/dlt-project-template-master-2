@@ -1,0 +1,48 @@
+version: '3.7'
+
+services:
+
+  # Blockchain
+
+  template_test_node:
+    hostname: template_test_node
+    ports:
+      - '8545:8545'
+      - '8546:8546'
+      - '30303'
+      - '30303/udp'
+    networks:
+      chain_net:
+          ipv4_address: 172.4.0.111
+    image: 'hyperledger/besu'
+    user: "root:root"
+    restart: unless-stopped
+    volumes:
+      - ./data:/opt/besu/database
+      - ./networkFiles/config:/etc/besu/config
+      - ./networkFiles/keys/bootnode:/etc/besu/keys
+    environment:
+      - BESU_USER_NAME=root
+    command: 
+      --data-path=/opt/besu/database
+      --genesis-file=/etc/besu/config/genesis.json 
+      --node-private-key-file=/etc/besu/keys/key
+      --rpc-http-max-active-connections=999999
+      --min-gas-price=0
+      --rpc-http-enabled 
+      --rpc-http-host=0.0.0.0
+      --rpc-http-api=ETH,NET,WEB3
+      --rpc-ws-enabled 
+      --rpc-ws-host=0.0.0.0
+      --rpc-ws-port=8546
+      --rpc-ws-api=ETH,NET,WEB3
+      --host-allowlist="*" 
+      --rpc-http-cors-origins="all"
+      --logging=INFO
+
+networks:
+  chain_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.4.0.0/24

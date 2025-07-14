@@ -1,0 +1,24 @@
+name: Auto deployment
+
+on:
+  push:
+    branches: [ "develop" ]
+jobs:
+  deploy:
+    runs-on: [self-hosted, dev-server]
+
+    steps:
+    - name: Update local git repository
+      working-directory: /home/bisite/Project
+      run: git add --all && git reset --hard && git checkout origin/develop && git pull origin develop
+
+    - name: Build backend
+      working-directory: /home/bisite/Project/web-application/backend
+      run: npm install && npm run build && npm run setup-mongo
+
+    - name: Build frontend
+      working-directory: /home/bisite/Project/web-application/frontend
+      run: npm install && npm run build
+
+    - name: Restart service
+      run: sudo systemctl restart project

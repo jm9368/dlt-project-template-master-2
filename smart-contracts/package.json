@@ -1,0 +1,28 @@
+{
+  "name": "smart-contracts",
+  "version": "1.0.0",
+  "description": "Smart contracts project",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "truffle test --network development",
+    "build": "truffle compile",
+    "gen-keys": "node gen-keys.js",
+    "deploy:dev": "truffle deploy --reset --network development",
+    "deploy:prod": "truffle deploy --reset --network production"
+  },
+  "author": "BISITE",
+  "license": "ISC",
+  "devDependencies": {
+    "@truffle/hdwallet-provider": "2.1.15",
+    "dotenv": "16.3.1",
+    "mocha": "10.2.0",
+    "truffle": "5.11.5"
+  },
+  "private": true,
+  "dependencies": {
+    "@asanrom/smart-contract-wrapper": "5.0.0"
+  }
+}

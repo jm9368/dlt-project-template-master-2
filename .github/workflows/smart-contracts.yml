@@ -1,0 +1,52 @@
+name: Smart Contracts CI
+
+on:
+  push:
+    branches: [ "master", "main", "develop" ]
+    paths:
+      - smart-contracts/**
+      - .github/workflows/smart-contracts.yml
+  pull_request:
+    branches: [ "master", "main", "develop" ]
+    paths:
+      - smart-contracts/**
+      - .github/workflows/smart-contracts.yml
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install NodeJS
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
+
+    - name: Setup test node
+      uses: AgustinSRG/eth-test-node-action@v5
+      with:
+        rpcPort: 8545
+
+    - name: Install dependencies
+      working-directory: ./smart-contracts
+      run: npm install
+
+    - name: Generate keys
+      working-directory: ./smart-contracts
+      run: npm run gen-keys
+
+    - name: Test smart contracts
+      working-directory: ./smart-contracts
+      run: npm test
+      env:
+        DEV_NETWORK_PROTOCOL: http
+        DEV_NETWORK_HOST: "127.0.0.1"
+        DEV_NETWORK_PORT: 8545
+        DEV_NETWORK_ID: 2833
+        PROD_NETWORK_GAS_PRICE: 0
+
+

@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			"**/*.min.js": true,
+			"**/*.min.css": true,
+			"node_modules/**": true,
+			"dist/**": true,
+			"data/**": true,
+			"temp/**": true,
+			"vue-front/**": true,
+			"static/js/app.bundle.js": true,
+			"static/css/app.bundle.css": true
+		},
+	}
+}

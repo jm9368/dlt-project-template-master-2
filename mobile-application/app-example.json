@@ -1,0 +1,41 @@
+{
+    "expo": {
+        "name": "mobile-application",
+        "slug": "mobile-application",
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./assets/icon.png",
+        "userInterfaceStyle": "light",
+        "splash": {
+            "image": "./assets/splash.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#ffffff"
+        },
+        "assetBundlePatterns": ["**/*"],
+        "ios": {
+            "supportsTablet": true
+        },
+        "android": {
+            "adaptiveIcon": {
+                "foregroundImage": "./assets/adaptive-icon.png",
+                "backgroundColor": "#ffffff"
+            },
+            "windowSoftInputMode": "adjustResize",
+            "package": "com.air.mobile.application"
+        },
+        "web": {
+            "favicon": "./assets/favicon.png"
+        },
+        "extra": {
+            "eas": {
+                "projectId": ""
+            },
+            "platform_name": "Platform",
+            "always_show_initial_screen": false,
+            "api_url": "http://10.0.2.2/api/v1",
+            "frontend_base_url": "http://10.0.2.2:8080",
+            "emulator_localhost_ip": "10.0.2.2",
+            "reCaptchaKey": ""
+        }
+    }
+}

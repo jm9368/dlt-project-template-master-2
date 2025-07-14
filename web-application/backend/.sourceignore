@@ -1,0 +1,3 @@
+# Ignores for sources (libraries)
+
+static/vendor

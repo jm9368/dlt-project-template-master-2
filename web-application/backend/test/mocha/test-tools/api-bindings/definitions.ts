@@ -416,6 +416,38 @@ export interface UploadProfileImageResponse {
     url?: string;
 }
 
+export interface PatientListItem {
+    id?: string;
+
+    username?: string;
+
+    email?: string;
+
+    enfermedades?: string[];
+
+    created?: number;
+}
+
+export interface PatientCreateBody {
+    username?: string;
+
+    email?: string;
+
+    password?: string;
+
+    enfermedades?: string[];
+}
+
+export interface PatientModifyBody {
+    username?: string;
+
+    email?: string;
+
+    password?: string;
+
+    enfermedades?: string[];
+}
+
 export interface ErrorResponse {
     /**
      * Error code 

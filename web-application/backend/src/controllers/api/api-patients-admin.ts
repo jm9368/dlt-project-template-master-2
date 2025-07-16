@@ -3,9 +3,35 @@ import { BAD_REQUEST, INTERNAL_SERVER_ERROR, sendApiError, sendApiResult, sendAp
 import { Controller } from "../controller";
 import { Patient } from "../../models/users/patient";
 import { DataFilter } from "tsbean-orm";
+import { insertPatientMongo, updatePatientMongo, deletePatientMongo } from "../../utils/patient-utils";
 
 /**
- * Patients admin API
+ * @typedef PatientListItem
+ * @property {string} id
+ * @property {string} username
+ * @property {string} email
+ * @property {string[]} enfermedades
+ * @property {number} created
+ */
+
+/**
+ * @typedef PatientCreateBody
+ * @property {string} username
+ * @property {string} email
+ * @property {string} password
+ * @property {string[]} enfermedades
+ */
+
+/**
+ * @typedef PatientModifyBody
+ * @property {string} username
+ * @property {string} email
+ * @property {string} password
+ * @property {string[]} enfermedades
+ */
+
+/**
+ * Patients admsendApiResult(request, response, { patients: filtered });in API
  * @group patients_admin
  */
 export class PatientsAdminController extends Controller {
@@ -93,8 +119,14 @@ export class PatientsAdminController extends Controller {
                 enfermedades: data.enfermedades || [],
                 created: Date.now(),
             });
-            await patient.insert();
-            // Aquí deberías guardar también en MongoDB (lógica aparte)
+            await patient.insert(); // MySQL
+            await insertPatientMongo({
+                id: patient.id,
+                username: patient.username,
+                email: patient.email,
+                enfermedades: patient.enfermedades,
+                created: patient.created,
+            });
             sendApiSuccess(request, response);
         } catch (e) {
             sendApiError(request, response, INTERNAL_SERVER_ERROR, "ERROR", "Error al crear paciente");
@@ -124,8 +156,13 @@ export class PatientsAdminController extends Controller {
             patient.email = data.email || patient.email;
             patient.password = data.password || patient.password;
             patient.enfermedades = data.enfermedades || patient.enfermedades;
-            await patient.save();
-            // Actualiza también en MongoDB (lógica aparte)
+            await patient.save(); // MySQL
+            await updatePatientMongo(patient.id, {
+                username: patient.username,
+                email: patient.email,
+                enfermedades: patient.enfermedades,
+                created: patient.created,
+            });
             sendApiSuccess(request, response);
         } catch (e) {
             sendApiError(request, response, INTERNAL_SERVER_ERROR, "ERROR", "Error al modificar paciente");
@@ -149,8 +186,8 @@ export class PatientsAdminController extends Controller {
                 sendApiError(request, response, BAD_REQUEST, "NOT_FOUND", "Paciente no encontrado");
                 return;
             }
-            await patient.delete();
-            // Elimina también en MongoDB (lógica aparte)
+            await patient.delete(); // MySQL
+            await deletePatientMongo(patient.id);
             sendApiSuccess(request, response);
         } catch (e) {
             sendApiError(request, response, INTERNAL_SERVER_ERROR, "ERROR", "Error al eliminar paciente");

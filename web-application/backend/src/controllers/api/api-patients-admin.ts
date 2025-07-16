@@ -60,7 +60,8 @@ export class PatientsAdminController extends Controller {
                 enfermedades: p.enfermedades,
                 created: p.created,
             }));
-            sendApiResult(request, response, { patients: filtered });
+            //sendApiResult(request, response, { patients: filtered });
+            sendApiResult(request, response, filtered);
         } catch (e) {
             sendApiError(request, response, INTERNAL_SERVER_ERROR, "ERROR", "Error al obtener pacientes");
         }

@@ -28,10 +28,23 @@
                         },
                     ],
                 },
+                {
+                    id: 'g-patients',
+                    name: $t('Patients'),
+                    disabled: !canUsers,
+                    options: [
+                        {
+                            id: 'patients',
+                            name: $t('Patients'),
+                            icon: 'fas fa-user-injured',
+                        },
+                    ],
+                },
             ]"
         >
             <UsersPage v-if="current === 'users'"></UsersPage>
             <RolesPage v-else-if="current === 'roles'"></RolesPage>
+            <PatientsPage v-else-if="current === 'patients'"></PatientsPage>
             <NotFoundContent v-else></NotFoundContent>
         </VerticalMenuPageLayout>
     </div>
@@ -58,6 +71,12 @@ const RolesPage = defineAsyncComponent({
     delay: 1000,
 });
 
+const PatientsPage = defineAsyncComponent({
+    loader: () => import("./PatientsPage.vue"),
+    loadingComponent: ComponentLoader,
+    delay: 1000,
+});
+
 const REQUIRED_PERMISSIONS = ["mod.users", "admin.roles"];
 
 export default defineComponent({
@@ -66,6 +85,7 @@ export default defineComponent({
         NotFoundContent,
         UsersPage,
         RolesPage,
+        PatientsPage,
     },
     name: "AdministrationPage",
     data: function () {

@@ -60,7 +60,7 @@ import { defineComponent } from "vue";
 import { ApiPatientsAdmin } from "@/api/api-group-patients-admin";
 import { Request } from "@asanrom/request-browser";
 import PatientModal from "@/components/modals/PatientModal.vue";
-import ConfirmModal from "@/components/modals/ConfirmModal.vue";
+import ConfirmModal from "@/components/modals/ConfirmationModal.vue";
 
 export default defineComponent({
     name: "PatientsPage",
